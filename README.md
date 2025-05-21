@@ -37,7 +37,7 @@ Through this challenge, I learned how to:
 ## 📫 Contact
 
 - GitHub: [@lfourage](https://github.com/lfourage)
-- exemple: [My Profile](https://www.exemple.org/lfourage)
+- FreeCodeCamp: [My Profile](https://www.exemple.org/lfourage)
 - Mail : [Email](ludogriph@gmail.com)
 
 ---
