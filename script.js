@@ -2,7 +2,7 @@ const cash = document.getElementById("cash");
 const changeDue = document.getElementById("change-due");
 const purchaseBtn = document.getElementById("purchase-btn");
 
-const currency = 0;
+const str = 0;
 const amount = 1;
 const value = 2;
 
@@ -18,18 +18,31 @@ let cid = [
   ["TWENTY", 60, 20],
   ["ONE HUNDRED", 100, 100],
 ];
+cid.reverse();
 
 const hasEnoughCash = (difference) => {
-    console.log(cid.reduce((prev, curr) => prev[amount] + curr[amount], 0));
-    return difference <= cid.reduce((prev, curr) => prev[amount] + curr[amount], 0);
+  let sumOfAmounts = 0;
+
+  for (let i = 0; i < cid.length - 1; i++) {
+    sumOfAmounts += cid[i][amount] + cid[i + 1][amount];
+  }
+
+  return difference <= sumOfAmounts;
 };
 
 const getFromRegister = (customerCash) => {
   const currencyType = cid
-    .reverse()
-    .find((el) => el[value] >= customerCash && el[amount] > 0);
+    .find((el) => el[value] <= customerCash - price && el[amount]);
 
-  return "test";
+  let amountTaken = 0;
+  while (currencyType[value] <= customerCash - price && currencyType[amount]) {
+    customerCash -= currencyType[value];
+    currencyType[amount] -= currencyType[value];
+    amountTaken += currencyType[value];
+  }
+  if (customerCash)
+    return `${currencyType[str]}: \$${amountTaken}\n${getFromRegister(customerCash)}`;
+  return `${currencyType[str]}: \$${amountTaken}`;
 };
 
 const clickPurchaseButton = () => {
@@ -38,7 +51,7 @@ const clickPurchaseButton = () => {
   if (customerCash >= price) {
     if (customerCash === price)
       changeDue.innerText = "No change due - customer paid with exact cash";
-    else if (hasEnoughCash(customerCash - price)){
+    else if (hasEnoughCash(customerCash - price)) {
       changeDue.innerText = `Status: ${getFromRegister(customerCash)}`;
     } else changeDue.innerText = "Status: INSUFFICIENT_FUNDS";
   } else alert("Customer does not have enough money to purchase the item");
