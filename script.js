@@ -6,7 +6,7 @@ const str = 0;
 const amount = 1;
 const value = 2;
 
-let price = 1.87;
+let price = 3.26;
 let cid = [
   ["PENNY", 1.01, 0.01],
   ["NICKEL", 2.05, 0.05],
